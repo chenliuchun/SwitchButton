@@ -28,6 +28,7 @@ public class SwitchView extends View {
 	private float sAnim, bAnim;
 	private RadialGradient shadowGradient;
 	private final AccelerateInterpolator aInterpolator = new AccelerateInterpolator(2);
+	private OnStateChangedListener listener;
 
 	/**
 	 * state switch on
@@ -269,8 +270,10 @@ public class SwitchView extends View {
 
 					if (state == STATE_SWITCH_OFF2) {
 						listener.toggleToOn(this);
+						toggleSwitch(STATE_SWITCH_ON);
 					} else if (state == STATE_SWITCH_ON2) {
 						listener.toggleToOff(this);
+						toggleSwitch(STATE_SWITCH_OFF);
 					}
 					break;
 			}
@@ -339,18 +342,6 @@ public class SwitchView extends View {
 
 		void toggleToOff(View view);
 	}
-
-	private OnStateChangedListener listener = new OnStateChangedListener() {
-		@Override
-		public void toggleToOn(View view) {
-			toggleSwitch(STATE_SWITCH_ON);
-		}
-
-		@Override
-		public void toggleToOff(View view) {
-			toggleSwitch(STATE_SWITCH_OFF);
-		}
-	};
 
 	public void setOnStateChangedListener(OnStateChangedListener listener) {
 		if (listener == null) throw new IllegalArgumentException("empty listener");
